@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from 'next';
 import Link from 'next/link';
 import { JetBrains_Mono, Montserrat, Press_Start_2P } from 'next/font/google';
+import { BackgroundMusic } from '@/components/BackgroundMusic';
+import { ThemeToggle } from '@/components/ThemeToggle';
 import './globals.css';
 
 const pixel = Press_Start_2P({ weight: '400', subsets: ['latin'], variable: '--font-pixel', display: 'swap' });
@@ -35,7 +37,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Link href="/#demo" className="hover:text-white">Pet Preview</Link>
               <Link href="/#embed" className="hover:text-white">Add to README</Link>
             </div>
-            <Link href="/dashboard" className="btn-primary !px-4 !py-2 text-sm">Choose a pet</Link>
+            <div className="flex items-center gap-2">
+              <ThemeToggle />
+              <BackgroundMusic />
+              <Link href="/dashboard" className="btn-primary !px-2.5 !py-2 text-xs sm:!px-4 sm:text-sm">Choose a pet</Link>
+            </div>
           </nav>
         </header>
         {children}

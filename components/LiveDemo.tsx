@@ -20,15 +20,16 @@ export function LiveDemo() {
   const [name, setName] = useState('');
   const [applied, setApplied] = useState('');
   const [loaded, setLoaded] = useState(false);
+  const [imageError, setImageError] = useState(false);
   const [bad, setBad] = useState(false);
 
   const live = scene === 'live';
   const username = live ? applied || 'demo' : 'demo';
   const src = `/api/pet?username=${encodeURIComponent(username)}&pet=${kind}&tz=${tz}${live ? '' : `&scenario=${scene}`}`;
-  useEffect(() => { setLoaded(false); }, [src]);
+  useEffect(() => { setLoaded(false); setImageError(false); }, [src]);
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[320px_1fr]">
+    <div className="grid min-w-0 gap-8 lg:grid-cols-[320px_minmax(0,1fr)]">
       <div className="space-y-6">
         <div>
           <div className="mb-2 text-sm font-semibold text-white">1. Pick a pet</div>
@@ -63,17 +64,18 @@ export function LiveDemo() {
         {bad && <p className="text-xs text-neon-red">That is not a valid GitHub username.</p>}
       </div>
 
-      <div>
+      <div className="min-w-0">
         <div className="glass overflow-hidden rounded-2xl">
           <div className="flex items-center gap-2 border-b border-white/10 px-4 py-2 font-mono text-xs text-slate-500">
             <span className="h-2.5 w-2.5 rounded-full bg-neon-red/70" /><span className="h-2.5 w-2.5 rounded-full bg-neon-gold/70" /><span className="h-2.5 w-2.5 rounded-full bg-neon-green/70" />
             <span className="ml-2">{username}/README.md</span>
           </div>
           <div className="bg-ink-900/60 p-4 sm:p-6">
-            <div className="relative mx-auto max-w-[640px]" style={{ aspectRatio: '640 / 300' }}>
-              {!loaded && <div className="absolute inset-0 animate-pulse rounded-2xl bg-white/5" />}
+            <div className="relative mx-auto max-w-[860px]" style={{ aspectRatio: '860 / 300' }}>
+              {!loaded && !imageError && <div className="absolute inset-0 animate-pulse rounded-2xl bg-white/5" />}
+              {imageError && <div className="absolute inset-0 flex items-center justify-center rounded-2xl bg-white/5 p-6 text-center text-sm text-slate-400">The preview could not be loaded. Please try again in a moment.</div>}
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img key={src} src={src} alt="Live preview of the GitHub README pet card" onLoad={() => setLoaded(true)} className={`w-full rounded-2xl transition-opacity ${loaded ? 'opacity-100' : 'opacity-0'}`} />
+              <img key={src} src={src} alt="Live preview of the GitHub README pet card" onLoad={() => { setLoaded(true); setImageError(false); }} onError={() => { setLoaded(false); setImageError(true); }} className={`w-full rounded-2xl transition-opacity ${loaded ? 'opacity-100' : 'opacity-0'}`} />
             </div>
           </div>
         </div>

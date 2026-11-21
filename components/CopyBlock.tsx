@@ -22,7 +22,7 @@ export function CopyBlock({ snippets }: { snippets: { label: string; code: strin
   }
 
   return (
-    <div className="glass overflow-hidden rounded-2xl">
+    <div className="glass min-w-0 overflow-hidden rounded-2xl">
       <div className="flex items-center justify-between border-b border-white/10 px-3 py-2">
         <div className="flex gap-1">
           {snippets.map((s, i) => (
