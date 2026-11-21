@@ -73,9 +73,9 @@ export function Leaderboard({ me, tz }: { me: string; tz: number }) {
           <motion.li
             key={r.login}
             layout
-            className={`flex items-center gap-3 rounded-2xl border p-4 sm:gap-4 sm:p-5 ${r.login.toLowerCase() === me.toLowerCase() ? 'border-neon-green/45 bg-neon-green/[0.045]' : 'border-white/10 bg-white/[0.025]'}`}
+            className={`flex items-center gap-3 rounded-2xl border border-white/10 p-4 sm:gap-4 sm:p-5 ${r.login.toLowerCase() === me.toLowerCase() ? 'bg-white/[0.045]' : 'bg-white/[0.025]'}`}
           >
-            <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border font-mono text-xs font-bold ${i === 0 ? 'border-neon-gold/30 bg-neon-gold/10 text-neon-gold' : 'border-white/10 bg-white/[0.03] text-slate-500'}`}>
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] font-mono text-xs font-semibold text-slate-400">
               {String(i + 1).padStart(2, '0')}
             </span>
             {r.avatarUrl ? (
