@@ -199,7 +199,7 @@ export function computePet(data: GhData, kind: PetKind, tz = 8, now = Date.now()
   } else if (beast) {
     speech = pick(['Monthly beast mode. Evolution boost unlocked!', `${active30}/30 active days. You are cooking!`]);
   } else if (trend.pct !== null && trend.pct >= 10 && commits30 > 0) {
-    speech = `You are cooking: ${trend.pct}% more active days this month!`;
+    speech = `Commits up +${trend.pct}% vs last month. She's cooking!`;
   } else if (streak >= 2) {
     speech = `${streak}-day streak. Keep cooking!`;
   } else if (mood === 'sleepy') {
