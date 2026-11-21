@@ -147,13 +147,13 @@ export function Dashboard() {
           <motion.section
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className={`glass relative mt-6 grid gap-8 overflow-hidden rounded-3xl p-5 md:grid-cols-[340px_1fr] md:p-8 ${s.mood === 'ghost' ? 'shadow-[0_0_80px_-10px_rgba(139,143,214,.45)]' : s.stage === 4 ? 'shadow-[0_0_80px_-10px_rgba(255,209,102,.4)]' : ''}`}
+            className="glass mt-6 grid gap-6 overflow-hidden rounded-3xl p-4 sm:p-6 md:grid-cols-[minmax(260px,0.8fr)_minmax(0,1.2fr)] md:gap-8 md:p-7"
           >
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center rounded-2xl bg-white/[0.025] px-3 pb-5 pt-4 sm:px-5">
               <SpeechBubble text={s.speech} danger={danger} />
-              <PetSprite art={s} size={280} className="mt-4" />
-              <div className="font-pixel text-[10px] text-neon-cyan">LV.{s.level} {s.stageName.toUpperCase()} {PETS[s.kind].name.toUpperCase()}</div>
-              <div className="mt-1 text-xs text-slate-500">{PETS[s.kind].trait}: {PETS[s.kind].traitDesc}</div>
+              <PetSprite art={s} size="min(100%, 280px)" className="mt-3" />
+              <div className="mt-1 text-center font-mono text-[11px] tracking-wide text-slate-400">LV.{s.level} <span className="px-1 text-slate-600">·</span> {s.stageName} {PETS[s.kind].name}</div>
+              <div className="mt-1 max-w-xs text-center text-xs leading-relaxed text-slate-500">{PETS[s.kind].trait}: {PETS[s.kind].traitDesc}</div>
             </div>
 
             <div>
@@ -170,9 +170,10 @@ export function Dashboard() {
                 </div>
               </div>
 
-              <div className="mt-5 flex items-end gap-4">
-                <div className="font-pixel text-4xl text-neon-gold [text-shadow:0_0_24px_rgba(255,209,102,.6)]">{s.streak}</div>
-                <div className="pb-1 text-sm text-slate-300">day streak{s.boosted && <span className="ml-2 rounded bg-neon-pink/20 px-2 py-0.5 text-[11px] font-bold text-neon-pink">Monthly Beast boost</span>}</div>
+              <div className="mt-6 flex flex-wrap items-end gap-x-3 gap-y-2 border-y border-white/10 py-4">
+                <div className="font-pixel text-4xl leading-none text-neon-gold">{s.streak}</div>
+                <div className="pb-0.5 text-sm text-slate-300">day streak</div>
+                {s.boosted && <span className="rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-1 text-[11px] font-medium text-slate-300">Monthly Beast boost</span>}
               </div>
 
               <div className="mt-4 space-y-2">

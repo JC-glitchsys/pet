@@ -11,14 +11,13 @@ function Ring({ pct }: { pct: number }) {
   const c = 2 * Math.PI * r;
   return (
     <svg viewBox="0 0 100 100" className="h-24 w-24 -rotate-90">
-      <circle cx="50" cy="50" r={r} fill="none" stroke="rgba(255,255,255,.08)" strokeWidth="9" />
+      <circle cx="50" cy="50" r={r} fill="none" stroke="rgba(255,255,255,.10)" strokeWidth="8" />
       <motion.circle
-        cx="50" cy="50" r={r} fill="none" stroke="#39ff88" strokeWidth="9" strokeLinecap="round"
+        cx="50" cy="50" r={r} fill="none" stroke="#71c99a" strokeWidth="8" strokeLinecap="round"
         strokeDasharray={c}
         initial={{ strokeDashoffset: c }}
         animate={{ strokeDashoffset: c * (1 - pct / 100) }}
         transition={{ duration: 1.4, ease: [0.2, 0.8, 0.2, 1] }}
-        style={{ filter: 'drop-shadow(0 0 6px #39ff88)' }}
       />
       <text x="50" y="50" textAnchor="middle" dominantBaseline="central" className="rotate-90 fill-white font-mono text-[22px] font-bold" style={{ transformOrigin: '50px 50px' }}>
         {pct}%
@@ -29,10 +28,10 @@ function Ring({ pct }: { pct: number }) {
 
 function Tile({ label, value, sub, tone }: { label: string; value: string; sub?: string; tone?: string }) {
   return (
-    <div className="flex min-h-28 flex-col rounded-2xl border border-white/10 bg-white/[0.03] p-4 sm:min-h-32 sm:p-5">
+    <div className="flex min-h-[132px] flex-col rounded-2xl border border-white/10 bg-white/[0.025] p-4 sm:p-[18px]">
       <div className="text-xs font-medium text-slate-400">{label}</div>
-      <div className={`mt-3 font-mono text-2xl font-bold tracking-tight sm:text-3xl ${tone ?? 'text-white'}`}>{value}</div>
-      {sub && <div className="mt-auto pt-2 text-xs leading-relaxed text-slate-500">{sub}</div>}
+      <div className={`mt-2 font-mono text-2xl font-semibold tracking-tight sm:text-[28px] ${tone ?? 'text-white'}`}>{value}</div>
+      {sub && <div className="mt-auto pt-3 text-xs leading-relaxed text-slate-500">{sub}</div>}
     </div>
   );
 }
@@ -43,8 +42,8 @@ export function MonthlyRecap({ s }: { s: PetState }) {
   const arrow = m.trend.dir === 'up' ? '▲' : m.trend.dir === 'down' ? '▼' : m.trend.dir === 'new' ? '★' : '●';
 
   return (
-    <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-6">
-      <div className="grid grid-cols-2 content-start gap-3 sm:gap-4 md:grid-cols-3">
+    <div className="grid items-start gap-4 lg:grid-cols-[minmax(0,1fr)_300px] lg:gap-5">
+      <div className="grid h-fit auto-rows-[minmax(132px,auto)] grid-cols-2 content-start gap-3 self-start sm:gap-4 md:grid-cols-3">
         <Tile label="Contributions (30 days)" value={String(m.commits)} sub={`${m.prevCommits} the month before`} />
         <Tile label="Active days" value={`${m.activeDays}/30`} sub={`HP tier: ${m.tierLabel}`} tone="text-neon-cyan" />
         <Tile label="Best day" value={m.bestDay ? fmt(m.bestDay.date) : '–'} sub={m.bestDay ? `${m.bestDay.count} contributions` : 'No activity yet'} />
@@ -53,8 +52,8 @@ export function MonthlyRecap({ s }: { s: PetState }) {
         <Tile label="Monthly XP" value={`${m.xp} XP`} sub={`${m.commits}×10 + ${m.activeDays}×50 bonus`} tone="text-neon-gold" />
       </div>
 
-      <div className="glass flex flex-col gap-5 rounded-2xl p-5 sm:p-6">
-        <div className="flex items-center gap-5">
+      <div className="glass flex flex-col gap-4 rounded-2xl p-4 sm:p-5">
+        <div className="flex items-center gap-4">
           <Ring pct={m.consistency} />
           <div>
             <div className="text-sm font-semibold text-white">Consistency</div>
@@ -70,7 +69,7 @@ export function MonthlyRecap({ s }: { s: PetState }) {
             <span>{Math.min(m.activeDays, 25)}/25</span>
           </div>
           <div className="h-2.5 overflow-hidden rounded-full bg-white/10">
-            <div className="h-full rounded-full bg-gradient-to-r from-neon-gold to-neon-pink transition-all duration-1000" style={{ width: `${Math.min(100, (m.activeDays / 25) * 100)}%` }} />
+            <div className="h-full rounded-full bg-slate-300/70 transition-all duration-1000" style={{ width: `${Math.min(100, (m.activeDays / 25) * 100)}%` }} />
           </div>
           <p className="mt-2 text-xs leading-relaxed text-slate-500">Reach 25 active days to earn an evolution boost.</p>
         </div>
