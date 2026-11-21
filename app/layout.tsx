@@ -32,10 +32,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </Link>
             <div className="hidden items-center gap-6 text-sm text-slate-400 sm:flex">
               <Link href="/#how" className="hover:text-white">How it works</Link>
-              <Link href="/#demo" className="hover:text-white">Vibe Check</Link>
+              <Link href="/#demo" className="hover:text-white">Pet Preview</Link>
               <Link href="/#embed" className="hover:text-white">Add to README</Link>
             </div>
-            <Link href="/dashboard" className="btn-primary !px-4 !py-2 text-sm">Pick your pet</Link>
+            <Link href="/dashboard" className="btn-primary !px-4 !py-2 text-sm">Choose a pet</Link>
           </nav>
         </header>
         {children}

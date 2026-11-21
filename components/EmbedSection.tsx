@@ -13,7 +13,7 @@ export function EmbedSection() {
         {[
           ['Open your profile repo', 'It is the repo named exactly like your username, e.g. github.com/you/you.'],
           ['Paste the snippet', 'Add it to README.md. Swap YOUR_USERNAME, and pet= for cat, dog, axolotl, dragon or capybara.'],
-          ['Commit it', 'Your pet appears on your profile. It refreshes about every 15 minutes, so it keeps up with you.'],
+          ['Add it to your profile', 'Your pet appears on your profile and refreshes approximately every 15 minutes.'],
         ].map(([t, d], i) => (
           <li key={t} className="flex gap-4">
             <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-neon-green/15 font-pixel text-[10px] text-neon-green">{i + 1}</span>
