@@ -447,12 +447,12 @@ ${bars}
 ${heat}
 <text x="622" y="249" text-anchor="end" font-size="26" font-weight="800" fill="${neon}">${m.activeDays}<tspan font-size="12" fill="#8b949e">/30</tspan></text>
 <text x="622" y="262" text-anchor="end" font-size="9" fill="#8b949e">ACTIVE DAYS</text>
-<text x="270" y="283" font-size="10" fill="#6e7681">pasabog pet · commit daily or it dies</text>
+<text x="270" y="283" font-size="10" fill="#6e7681">GITHUB PET · YOU’RE COOKING</text>
 </svg>`;
 }
 
 export function errorSVG(msg: string): string {
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="640" height="120" viewBox="0 0 640 120" font-family="ui-monospace,Menlo,Consolas,monospace"><rect width="640" height="120" rx="16" fill="#0d1117" stroke="#ff6b81" stroke-opacity=".6"/><text x="24" y="52" fill="#ff6b81" font-size="16" font-weight="700">PASABOG PET · oops</text><text x="24" y="82" fill="#c9d1d9" font-size="13">${esc(msg).slice(0, 80)}</text></svg>`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="640" height="120" viewBox="0 0 640 120" font-family="ui-monospace,Menlo,Consolas,monospace"><rect width="640" height="120" rx="16" fill="#0d1117" stroke="#ff6b81" stroke-opacity=".6"/><text x="24" y="52" fill="#ff6b81" font-size="16" font-weight="700">GITHUB PET · oops</text><text x="24" y="82" fill="#c9d1d9" font-size="13">${esc(msg).slice(0, 80)}</text></svg>`;
 }
 
 export { STAGE_NAMES };
