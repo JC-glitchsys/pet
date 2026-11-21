@@ -4,9 +4,9 @@ import { LiveDemo } from '@/components/LiveDemo';
 import { EmbedSection } from '@/components/EmbedSection';
 
 const STEPS = [
-  { t: 'Pick your main', d: 'Cat, dog, axolotl, dragon, or capybara. Ikaw bahala.' },
-  { t: 'Commits = pagkain', d: 'GitHub streak mo ang XP at HP niya. Wowow.' },
-  { t: 'Skip ka? Ghost era.', d: 'Keep committing para sheshable ang evolution.' },
+  { t: 'Choose a pet', d: 'Cat, dog, axolotl, dragon, or capybara. Pick your fave.' },
+  { t: 'Commits feed it', d: 'Your real GitHub streak powers its HP and XP.' },
+  { t: 'Skip days? Ghost mode.', d: 'Keep the streak going to help it evolve.' },
 ];
 
 export default function Home() {
@@ -16,17 +16,17 @@ export default function Home() {
         <div className="grid-bg pointer-events-none absolute inset-0" />
         <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-4 pb-20 pt-16 lg:grid-cols-[1.1fr_0.9fr] lg:pt-24">
           <div>
-            <p className="mb-5 font-mono text-xs uppercase tracking-[0.2em] text-neon-green">GitHub pet · free · no login</p>
+            <p className="mb-5 text-xs uppercase tracking-[0.2em] text-neon-green">GitHub pet · free · no login</p>
             <h1 className="font-pixel text-2xl leading-[1.5] text-white sm:text-4xl sm:leading-[1.4]">
-              Commit ka.<br />
-              <span className="text-neon-red [text-shadow:0_0_30px_rgba(255,107,129,.6)]">Pet mo, aura-farming.</span>
+              Your GitHub streak<br />
+              <span className="text-neon-red [text-shadow:0_0_30px_rgba(255,107,129,.6)]">keeps your pet alive.</span>
             </h1>
             <p className="mt-6 max-w-xl text-lg text-slate-300">
-              GitHub streak mo ang XP niya. Commit ka, glow up siya. Biglang nawala? Gutom era. Bogphh.
+              Your real GitHub activity feeds a pixel pet. Keep committing to help it grow; disappear for too long and it goes ghost.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link href="/dashboard" className="btn-primary">Pili ka ng pet</Link>
-              <Link href="#demo" className="btn-ghost">Vibe check</Link>
+              <Link href="/dashboard" className="btn-primary">Pick your pet</Link>
+              <Link href="#demo" className="btn-ghost">See the demo</Link>
             </div>
           </div>
           <ShowcaseLoop />
@@ -34,7 +34,7 @@ export default function Home() {
       </section>
 
       <section id="how" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-12">
-        <h2 className="font-pixel text-lg text-white">Okay, paano?</h2>
+        <h2 className="text-xl font-semibold text-white">How it works</h2>
         <div className="mt-6 grid gap-4 sm:grid-cols-3">
           {STEPS.map((s, i) => (
             <div key={s.t} className="glass rounded-2xl p-4">
@@ -47,13 +47,13 @@ export default function Home() {
       </section>
 
       <section id="demo" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-12">
-        <h2 className="font-pixel text-lg text-white">Vibe check</h2>
-        <p className="mt-2 text-slate-400">Pick a pet. Try a mood. Shesh.</p>
+        <h2 className="text-xl font-semibold text-white">Vibe Check</h2>
+        <p className="mt-2 text-slate-400">Pick a pet and try a mood.</p>
         <div className="mt-8"><LiveDemo /></div>
       </section>
 
       <section id="embed" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-12">
-        <h2 className="font-pixel text-lg text-white">Pet flex sa README mo</h2>
+        <h2 className="text-xl font-semibold text-white">Add it to your README</h2>
         <div className="mt-8"><EmbedSection /></div>
       </section>
     </main>

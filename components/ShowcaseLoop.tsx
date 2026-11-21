@@ -26,12 +26,12 @@ export function ShowcaseLoop() {
 
   return (
     <div className="glass relative mx-auto w-full max-w-sm rounded-3xl p-6">
-      <div className="mb-4 rounded-2xl bg-slate-100 px-4 py-3 font-mono text-sm font-bold text-ink-950">{it.say}</div>
+      <div className="mb-4 rounded-2xl bg-slate-100 px-4 py-3 font-sans text-sm font-bold text-ink-950">{it.say}</div>
       <PetSprite art={it.art} size="100%" />
-      <div className="mt-1 text-center font-pixel text-[10px] text-neon-cyan">{it.tag}</div>
+      <div className="mt-1 text-center font-sans text-xs font-semibold tracking-wide text-neon-cyan">{it.tag}</div>
       <div className="mt-4 space-y-2">
         {it.bars.map((v, n) => (
-          <div key={LABELS[n]} className="flex items-center gap-3 font-mono text-[10px] text-slate-400">
+          <div key={LABELS[n]} className="flex items-center gap-3 font-sans text-[10px] text-slate-400">
             <span className="w-14">{LABELS[n]}</span>
             <div className="h-2 flex-1 overflow-hidden rounded-full bg-white/10">
               <motion.div key={`${i}-${n}`} className="h-full rounded-full" style={{ background: COLORS[n] }} initial={{ width: 0 }} animate={{ width: `${v}%` }} transition={{ duration: 0.9, delay: n * 0.08 }} />
