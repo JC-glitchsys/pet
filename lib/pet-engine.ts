@@ -180,38 +180,38 @@ export function computePet(data: GhData, kind: PetKind, tz = 8, now = Date.now()
   let speech: string;
   if (ghost) {
     speech = active30 === 0
-      ? 'No commits this month. I am in ghost mode. Boo.'
-      : pick(['Three days offline and I am a ghost. Boo.', 'One commit and I am back.']);
+      ? 'Ghost era na ko... commit ka pls. Bogphh.'
+      : pick(['Three days? Ghosted na. Boo.', 'One commit and I’m so back. Shesh.']);
   } else if (mood === 'sad') {
-    speech = pick(['Two days without a commit... save me?', 'One commit could turn this around.']);
+    speech = pick(['Two days na. Save me naman?', 'One commit? Babalik ako. Pls?']);
   } else if ((mood === 'hungry' || mood === 'tired') && !committedToday && streak >= 3 && hoursLeft <= 8) {
-    speech = `${hoursLeft}h left. Keep that ${streak}-day streak alive!`;
+    speech = `${hoursLeft}h left. Save the ${streak}-day streak, bestie!`;
   } else if (mood === 'hungry' && !committedToday) {
-    speech = pick(['Feed me a commit!', 'I am starving. Drop a commit!']);
+    speech = pick(['Feed me a commit, pls.', 'Gutom na me. Commit ka na!']);
   } else if (mood === 'tired' && !committedToday) {
-    speech = pick(['Still running on last month’s grind. Feed me soon?', 'Stored energy is low. Commit time?']);
+    speech = pick(['Last month pa energy ko. Feed me pls?', 'Low batt na ko. Commit time?']);
   } else if (mood === 'sleepy' && !committedToday) {
-    speech = pick(['zZz... one commit before bed?', 'Sleepy. Catch you after a commit?']);
+    speech = pick(['zZz... one commit muna bago tulog?', 'Antok na me. Shesh, bukas na?']);
   } else if (active30 === 30) {
-    speech = '30/30 active days. Absolutely slaying.';
+    speech = '30/30? Grabe, aura-farming ka!';
   } else if (effStreak >= 100) {
-    speech = `${effStreak} days?! She is legendary. Slay.`;
+    speech = `${effStreak} days?! Sheshable. Slay.`;
   } else if (beast) {
-    speech = pick(['Monthly beast mode. Evolution boost unlocked!', `${active30}/30 active days. You are cooking!`]);
+    speech = pick(['Monthly beast? Aura secured.', `${active30}/30 active days? Grabe, nag-cook ka!`]);
   } else if (trend.pct !== null && trend.pct >= 10 && commits30 > 0) {
-    speech = `Commits up +${trend.pct}% vs last month. She's cooking!`;
+    speech = `Commits up +${trend.pct}%? Aura-farming ka ah!`;
   } else if (streak >= 2) {
-    speech = `${streak}-day streak. Keep cooking!`;
+    speech = `${streak}-day streak? Shesh. Keep cooking!`;
   } else if (mood === 'sleepy') {
-    speech = 'zZz... fed for today. Goodnight!';
+    speech = 'zZz... busog na. Goodnight, bestie.';
   } else if (mood === 'hungry') {
-    speech = 'Fed, but still hungry. More commits?';
+    speech = 'Fed na, pero gutom pa. More commits?';
   } else if (mood === 'tired') {
-    speech = 'Nice commit. Keep the active days coming!';
+    speech = 'Nice commit. Tuloy ang grind, bestie!';
   } else if (stage === 0) {
-    speech = '*tap tap* Commit to hatch me!';
+    speech = '*tok tok* Hatch me na pls!';
   } else {
-    speech = pick(['Fed today. We love to see it!', 'Full HP. See you tomorrow!']);
+    speech = pick(['Fed na. Wowow!', 'Full HP. Balik ka bukas, shesh.']);
   }
 
   // ── achievements ────────────────────────────────────────

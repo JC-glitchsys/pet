@@ -31,16 +31,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               GITHUB<span className="text-neon-green">PET</span>
             </Link>
             <div className="hidden items-center gap-6 text-sm text-slate-400 sm:flex">
-              <Link href="/#how" className="hover:text-white">How it works</Link>
-              <Link href="/#demo" className="hover:text-white">Live demo</Link>
-              <Link href="/#embed" className="hover:text-white">Add to README</Link>
+              <Link href="/#how" className="hover:text-white">Paano?</Link>
+              <Link href="/#demo" className="hover:text-white">Vibe check</Link>
+              <Link href="/#embed" className="hover:text-white">README flex</Link>
             </div>
-            <Link href="/dashboard" className="btn-primary !px-4 !py-2 text-sm">Adopt a pet</Link>
+            <Link href="/dashboard" className="btn-primary !px-4 !py-2 text-sm">Pili ka</Link>
           </nav>
         </header>
         {children}
         <footer className="mt-24 border-t border-white/5 py-10 text-center text-sm text-slate-500">
-          Built with Next.js, the GitHub GraphQL API and too many green squares. Not affiliated with GitHub.
+          Not affiliated with GitHub · powered by your commits.
         </footer>
       </body>
     </html>

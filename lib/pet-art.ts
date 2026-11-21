@@ -447,7 +447,6 @@ ${bars}
 ${heat}
 <text x="622" y="249" text-anchor="end" font-size="26" font-weight="800" fill="${neon}">${m.activeDays}<tspan font-size="12" fill="#8b949e">/30</tspan></text>
 <text x="622" y="262" text-anchor="end" font-size="9" fill="#8b949e">ACTIVE DAYS</text>
-<text x="270" y="283" font-size="10" fill="#6e7681">GITHUB PET · YOU’RE COOKING</text>
 </svg>`;
 }
 
