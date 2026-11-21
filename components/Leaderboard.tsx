@@ -10,8 +10,6 @@ interface Row {
   streak: number; stage: number; mood: string; activeDays: number; commits: number;
 }
 
-const MEDAL = ['🥇', '🥈', '🥉'];
-
 export function Leaderboard({ me, tz }: { me: string; tz: number }) {
   const [friends, setFriends] = useState<string[]>([]);
   const [rows, setRows] = useState<Row[]>([]);
@@ -59,7 +57,7 @@ export function Leaderboard({ me, tz }: { me: string; tz: number }) {
 
   return (
     <div>
-      <form onSubmit={add} className="mb-4 flex gap-2">
+      <form onSubmit={add} className="mb-5 flex gap-2 sm:mb-6">
         <input
           value={input}
           onChange={(e) => setInput(e.target.value)}
@@ -70,14 +68,16 @@ export function Leaderboard({ me, tz }: { me: string; tz: number }) {
       </form>
       {note && <p className="mb-3 text-xs text-neon-gold">{note}</p>}
 
-      <ol className="space-y-2">
+      <ol className="space-y-3">
         {rows.map((r, i) => (
           <motion.li
             key={r.login}
             layout
-            className={`flex items-center gap-3 rounded-2xl border p-3 ${r.login.toLowerCase() === me.toLowerCase() ? 'border-neon-green/50 bg-neon-green/5' : 'border-white/10 bg-white/[0.03]'}`}
+            className={`flex items-center gap-3 rounded-2xl border p-4 sm:gap-4 sm:p-5 ${r.login.toLowerCase() === me.toLowerCase() ? 'border-neon-green/45 bg-neon-green/[0.045]' : 'border-white/10 bg-white/[0.025]'}`}
           >
-            <span className="w-7 text-center text-lg">{MEDAL[i] ?? <span className="font-mono text-sm text-slate-500">{i + 1}</span>}</span>
+            <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border font-mono text-xs font-bold ${i === 0 ? 'border-neon-gold/30 bg-neon-gold/10 text-neon-gold' : 'border-white/10 bg-white/[0.03] text-slate-500'}`}>
+              {String(i + 1).padStart(2, '0')}
+            </span>
             {r.avatarUrl ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img src={r.avatarUrl} alt="" className="h-9 w-9 rounded-full" />
@@ -88,7 +88,7 @@ export function Leaderboard({ me, tz }: { me: string; tz: number }) {
               <div className="truncate text-sm font-bold text-white">{r.login}</div>
               <div className="font-mono text-[11px] text-slate-500">
                 LV.{r.level} · {STAGE_NAMES[r.stage]} · {r.streak}d streak · {r.activeDays}/30
-                {r.mood === 'ghost' && <span className="ml-1 text-neon-red">dead</span>}
+                {r.mood === 'ghost' && <span className="ml-1 text-neon-red">ghost</span>}
               </div>
             </div>
             <div className="text-right">

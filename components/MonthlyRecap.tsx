@@ -29,10 +29,10 @@ function Ring({ pct }: { pct: number }) {
 
 function Tile({ label, value, sub, tone }: { label: string; value: string; sub?: string; tone?: string }) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
-      <div className="text-xs text-slate-400">{label}</div>
-      <div className={`mt-1 font-mono text-2xl font-bold ${tone ?? 'text-white'}`}>{value}</div>
-      {sub && <div className="mt-0.5 text-xs text-slate-500">{sub}</div>}
+    <div className="flex min-h-28 flex-col rounded-2xl border border-white/10 bg-white/[0.03] p-4 sm:min-h-32 sm:p-5">
+      <div className="text-xs font-medium text-slate-400">{label}</div>
+      <div className={`mt-3 font-mono text-2xl font-bold tracking-tight sm:text-3xl ${tone ?? 'text-white'}`}>{value}</div>
+      {sub && <div className="mt-auto pt-2 text-xs leading-relaxed text-slate-500">{sub}</div>}
     </div>
   );
 }
@@ -43,8 +43,8 @@ export function MonthlyRecap({ s }: { s: PetState }) {
   const arrow = m.trend.dir === 'up' ? '▲' : m.trend.dir === 'down' ? '▼' : m.trend.dir === 'new' ? '★' : '●';
 
   return (
-    <div className="grid gap-6 lg:grid-cols-[1fr_320px]">
-      <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
+    <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-6">
+      <div className="grid grid-cols-2 content-start gap-3 sm:gap-4 md:grid-cols-3">
         <Tile label="Contributions (30 days)" value={String(m.commits)} sub={`${m.prevCommits} the month before`} />
         <Tile label="Active days" value={`${m.activeDays}/30`} sub={`HP tier: ${m.tierLabel}`} tone="text-neon-cyan" />
         <Tile label="Best day" value={m.bestDay ? fmt(m.bestDay.date) : '–'} sub={m.bestDay ? `${m.bestDay.count} contributions` : 'No activity yet'} />
@@ -53,26 +53,26 @@ export function MonthlyRecap({ s }: { s: PetState }) {
         <Tile label="Monthly XP" value={`${m.xp} XP`} sub={`${m.commits}×10 + ${m.activeDays}×50 bonus`} tone="text-neon-gold" />
       </div>
 
-      <div className="glass flex flex-col items-center gap-4 rounded-2xl p-5">
-        <div className="flex items-center gap-4">
+      <div className="glass flex flex-col gap-5 rounded-2xl p-5 sm:p-6">
+        <div className="flex items-center gap-5">
           <Ring pct={m.consistency} />
           <div>
-            <div className="font-pixel text-[10px] text-white">Consistency</div>
-            <div className="mt-1 text-xs text-slate-400">active days ÷ 30</div>
+            <div className="text-sm font-semibold text-white">Consistency</div>
+            <div className="mt-1 text-xs text-slate-400">Active days this month</div>
           </div>
         </div>
         <div className="w-full">
           <Heatmap days={m.days} />
         </div>
         <div className="w-full">
-          <div className="mb-1 flex justify-between font-mono text-[11px] text-slate-400">
-            <span>{m.beast ? 'MONTHLY BEAST unlocked' : 'Monthly Beast progress'}</span>
+          <div className="mb-2 flex justify-between gap-3 text-xs text-slate-400">
+            <span>{m.beast ? 'Monthly Beast unlocked' : 'Monthly Beast progress'}</span>
             <span>{Math.min(m.activeDays, 25)}/25</span>
           </div>
-          <div className="h-2 overflow-hidden rounded-full bg-white/10">
+          <div className="h-2.5 overflow-hidden rounded-full bg-white/10">
             <div className="h-full rounded-full bg-gradient-to-r from-neon-gold to-neon-pink transition-all duration-1000" style={{ width: `${Math.min(100, (m.activeDays / 25) * 100)}%` }} />
           </div>
-          <p className="mt-2 text-[11px] text-slate-500">25+ active days gives an instant evolution boost.</p>
+          <p className="mt-2 text-xs leading-relaxed text-slate-500">Reach 25 active days to earn an evolution boost.</p>
         </div>
       </div>
     </div>

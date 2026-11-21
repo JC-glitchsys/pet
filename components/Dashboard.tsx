@@ -22,10 +22,10 @@ interface Api { user: GhUser; state: PetState; source: 'github' | 'demo' }
 
 function Section({ title, sub, children }: { title: string; sub?: string; children: React.ReactNode }) {
   return (
-    <section className="mt-10">
-      <h2 className="font-pixel text-sm text-white">{title}</h2>
-      {sub && <p className="mt-2 max-w-xl text-sm text-slate-400">{sub}</p>}
-      <div className="mt-5">{children}</div>
+    <section className="mt-12 sm:mt-14">
+      <h2 className="text-xl font-semibold tracking-tight text-white">{title}</h2>
+      {sub && <p className="mt-2 max-w-2xl text-sm leading-relaxed text-slate-400">{sub}</p>}
+      <div className="mt-6">{children}</div>
     </section>
   );
 }
