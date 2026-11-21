@@ -12,19 +12,35 @@ export function BackgroundMusic() {
     const audio = audioRef.current;
     if (!audio) return;
 
-    const handlePlay = () => setStatus('playing');
+    const removeGestureListeners = () => {
+      document.removeEventListener('pointerdown', handleUserInteraction);
+      document.removeEventListener('keydown', handleUserInteraction);
+    };
+    const handlePlay = () => {
+      setStatus('playing');
+      removeGestureListeners();
+    };
     const handlePause = () => setStatus('paused');
     const handleError = () => setStatus('missing');
+    const handlePlaybackError = (error: unknown) => {
+      const name = error instanceof DOMException ? error.name : '';
+      setStatus(name === 'NotAllowedError' ? 'blocked' : 'missing');
+    };
+    const handleUserInteraction = () => {
+      removeGestureListeners();
+      if (audio.paused) audio.play().catch(handlePlaybackError);
+    };
+
     audio.addEventListener('play', handlePlay);
     audio.addEventListener('pause', handlePause);
     audio.addEventListener('error', handleError);
+    document.addEventListener('pointerdown', handleUserInteraction);
+    document.addEventListener('keydown', handleUserInteraction);
 
-    audio.play().catch((error: unknown) => {
-      const name = error instanceof DOMException ? error.name : '';
-      setStatus(name === 'NotAllowedError' ? 'blocked' : 'missing');
-    });
+    audio.play().catch(handlePlaybackError);
 
     return () => {
+      removeGestureListeners();
       audio.removeEventListener('play', handlePlay);
       audio.removeEventListener('pause', handlePause);
       audio.removeEventListener('error', handleError);
@@ -53,7 +69,7 @@ export function BackgroundMusic() {
 
   return (
     <>
-      <audio ref={audioRef} src="/music.mp3" loop preload="none" />
+      <audio ref={audioRef} src="/music.mp3" loop autoPlay preload="none" />
       <button
         type="button"
         onClick={toggleMusic}
