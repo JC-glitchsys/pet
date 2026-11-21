@@ -45,6 +45,10 @@ export function Dashboard() {
   const [err, setErr] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [evolved, setEvolved] = useState<PetState | null>(null);
+  const [petName, setPetName] = useState('');
+  const [nameDraft, setNameDraft] = useState('');
+  const [editingName, setEditingName] = useState(false);
+  const [milestoneReaction, setMilestoneReaction] = useState('');
 
   useEffect(() => {
     const stored = load<string | null>('pp:pet', null);
@@ -56,6 +60,21 @@ export function Dashboard() {
     setReady(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (!user) return;
+    setMilestoneReaction('');
+    const savedName = load<string>(`pp:pet-name:${user.toLowerCase()}`, '');
+    setPetName(savedName);
+    setNameDraft(savedName);
+    setEditingName(false);
+  }, [user]);
+
+  useEffect(() => {
+    if (!milestoneReaction) return;
+    const timer = window.setTimeout(() => setMilestoneReaction(''), 7000);
+    return () => window.clearTimeout(timer);
+  }, [milestoneReaction]);
 
   useEffect(() => {
     if (!user || !kind) return;
@@ -73,6 +92,19 @@ export function Dashboard() {
       })
       .then((j) => {
         setRes(j);
+        const milestones = [
+          { days: 3, say: '3-day streak! Solid start—keep it going.' },
+          { days: 7, say: '7 days straight? Shesh, that’s a proper streak.' },
+          { days: 30, say: '30-day streak! Your pet is thriving.' },
+          { days: 100, say: '100 days?! Legendary aura-farming.' },
+        ];
+        const milestoneKey = `pp:milestone:${j.user.login.toLowerCase()}`;
+        const lastMilestone = load<number>(milestoneKey, 0);
+        const reached = milestones.filter((m) => m.days <= j.state.streak);
+        const highestReached = reached[reached.length - 1];
+        const newlyReached = reached.find((m) => m.days > lastMilestone);
+        if (newlyReached) setMilestoneReaction(highestReached?.say ?? newlyReached.say);
+        if (highestReached && highestReached.days > lastMilestone) save(milestoneKey, highestReached.days);
         const key = `pp:stage:${j.user.login}`;
         const prev = load<number>(key, -1);
         if (prev >= 0 && j.state.stage > prev) setEvolved(j.state);
@@ -87,6 +119,15 @@ export function Dashboard() {
     setKind(k);
     save('pp:pet', k);
     setPicking(false);
+  }
+
+  function savePetName(e: React.FormEvent) {
+    e.preventDefault();
+    const next = nameDraft.trim().slice(0, 20);
+    setPetName(next);
+    setNameDraft(next);
+    if (login) save(`pp:pet-name:${login.toLowerCase()}`, next);
+    setEditingName(false);
   }
 
   function submit(e: React.FormEvent) {
@@ -150,8 +191,30 @@ export function Dashboard() {
             className="glass mt-6 grid gap-6 overflow-hidden rounded-3xl p-4 sm:p-6 md:grid-cols-[minmax(260px,0.8fr)_minmax(0,1.2fr)] md:gap-8 md:p-7"
           >
             <div className="flex flex-col items-center rounded-2xl bg-white/[0.025] px-3 pb-5 pt-4 sm:px-5">
-              <SpeechBubble text={s.speech} danger={danger} />
+              <SpeechBubble text={milestoneReaction || s.speech} danger={danger} />
               <PetSprite art={s} size="min(100%, 280px)" className="mt-3" />
+              {editingName ? (
+                <form onSubmit={savePetName} className="mt-2 flex w-full max-w-sm flex-wrap justify-center gap-2">
+                  <input
+                    autoFocus
+                    value={nameDraft}
+                    onChange={(e) => setNameDraft(e.target.value)}
+                    maxLength={20}
+                    aria-label="Pet name"
+                    placeholder="Give your pet a name"
+                    className="min-w-0 flex-1 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-center text-sm text-white outline-none placeholder:text-slate-500 focus:border-white/25"
+                  />
+                  <button type="submit" className="btn-primary !px-4 !py-2 text-sm">Save</button>
+                  <button type="button" onClick={() => { setNameDraft(petName); setEditingName(false); }} className="btn-ghost !px-4 !py-2 text-sm">Cancel</button>
+                </form>
+              ) : (
+                <div className="mt-2 flex flex-wrap items-center justify-center gap-x-2 gap-y-1">
+                  <h3 className="font-semibold text-white">{petName || 'Your pet'}</h3>
+                  <button type="button" onClick={() => { setNameDraft(petName); setEditingName(true); }} className="rounded-full border border-white/10 px-3 py-1 text-xs text-slate-400 transition hover:bg-white/[0.06] hover:text-white">
+                    {petName ? 'Rename' : 'Name your pet'}
+                  </button>
+                </div>
+              )}
               <div className="mt-1 text-center font-mono text-[11px] tracking-wide text-slate-400">LV.{s.level} <span className="px-1 text-slate-600">·</span> {s.stageName} {PETS[s.kind].name}</div>
               <div className="mt-1 max-w-xs text-center text-xs leading-relaxed text-slate-500">{PETS[s.kind].trait}: {PETS[s.kind].traitDesc}</div>
             </div>
@@ -204,8 +267,8 @@ export function Dashboard() {
           <Section title="Put it on your README" sub="Paste this into your profile README and the pet updates itself.">
             <CopyBlock
               snippets={[
-                { label: 'Markdown', code: mdSnippet(origin, { username: login, pet: s.kind, tz }) },
-                { label: 'HTML', code: htmlSnippet(origin, { username: login, pet: s.kind, tz }) },
+                { label: 'Markdown', code: mdSnippet(origin, { username: login, pet: s.kind, tz, name: petName }) },
+                { label: 'HTML', code: htmlSnippet(origin, { username: login, pet: s.kind, tz, name: petName }) },
               ]}
             />
           </Section>

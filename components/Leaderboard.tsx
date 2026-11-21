@@ -96,7 +96,7 @@ export function Leaderboard({ me, tz }: { me: string; tz: number }) {
               <div className="text-[10px] text-slate-500">score</div>
             </div>
             {r.login.toLowerCase() !== me.toLowerCase() && (
-              <button onClick={() => remove(r.login)} aria-label={`Remove ${r.login}`} className="text-slate-600 hover:text-neon-red">✕</button>
+              <button onClick={() => remove(r.login)} aria-label={`Remove ${r.login}`} className="flex h-8 w-8 items-center justify-center rounded-full text-slate-600 transition hover:bg-white/10 hover:text-neon-red">✕</button>
             )}
           </motion.li>
         ))}

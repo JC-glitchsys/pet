@@ -76,7 +76,7 @@ export function BackgroundMusic() {
         aria-label={status === 'missing' ? 'Add music.mp3 to the public folder' : label}
         aria-pressed={status === 'playing'}
         title={status === 'missing' ? 'Add music.mp3 to the public folder' : label}
-        className="music-control rounded-xl border border-white/10 bg-white/5 px-2.5 py-2 text-sm text-slate-300 transition hover:bg-white/10 sm:px-3"
+        className="music-control rounded-full border border-white/10 bg-white/5 px-3 py-2 text-sm text-slate-300 transition hover:bg-white/10"
       >
         <span aria-hidden="true">{'\u266B'}</span>
         <span className="ml-1.5 hidden sm:inline">{status === 'playing' ? 'Music on' : status === 'missing' ? 'Add music.mp3' : 'Play music'}</span>

@@ -36,7 +36,7 @@ export function LiveDemo() {
           <div className="flex flex-wrap gap-2">
             {PET_KINDS.map((k) => (
               <button key={k} onClick={() => setKind(k)} aria-pressed={kind === k}
-                className={`rounded-lg border px-3 py-1.5 text-sm transition ${kind === k ? 'text-ink-950' : 'border-white/10 text-slate-300 hover:border-white/30'}`}
+                className={`rounded-full border px-3 py-1.5 text-sm transition ${kind === k ? 'text-ink-950' : 'border-white/10 text-slate-300 hover:border-white/30'}`}
                 style={kind === k ? { background: PETS[k].color, borderColor: PETS[k].color } : undefined}>
                 {PETS[k].name}
               </button>
@@ -48,7 +48,7 @@ export function LiveDemo() {
           <div className="flex flex-wrap gap-2">
             {SCENES.map(([id, label]) => (
               <button key={id} onClick={() => setScene(id)} aria-pressed={scene === id}
-                className={`rounded-lg border px-3 py-1.5 text-sm transition ${scene === id ? 'border-neon-green bg-neon-green/15 text-neon-green' : 'border-white/10 text-slate-300 hover:border-white/30'}`}>
+              className={`rounded-full border px-3 py-1.5 text-sm transition ${scene === id ? 'border-neon-green bg-neon-green/15 text-neon-green' : 'border-white/10 text-slate-300 hover:border-white/30'}`}>
                 {label}
               </button>
             ))}

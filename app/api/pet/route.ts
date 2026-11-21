@@ -30,7 +30,8 @@ export async function GET(req: NextRequest) {
   try {
     const data = await getGithubData(username, { tz, scenario: sp.get('scenario') });
     const state = computePet(data, kind, tz);
-    return new Response(cardSVG(state, { username: data.user.login }), { headers: headers(900) });
+    const petName = (sp.get('name') ?? '').trim().slice(0, 20);
+    return new Response(cardSVG(state, { username: data.user.login, petName }), { headers: headers(900) });
   } catch (e) {
     const msg = e instanceof GhError ? e.message : 'Could not reach GitHub.';
     return new Response(errorSVG(msg), { headers: headers(120) });

@@ -375,9 +375,10 @@ function wrap(s: string, max: number) {
   return lines.slice(0, 2);
 }
 
-export function cardSVG(s: PetState, o: { username: string }): string {
+export function cardSVG(s: PetState, o: { username: string; petName?: string }): string {
   const m = s.month;
   const meta = PETS[s.kind];
+  const petName = o.petName?.trim().slice(0, 20);
   const neon = s.mood === 'ghost' ? '#8b8fd6' : s.stage === 4 ? '#ffd166'
     : s.mood === 'sad' || s.mood === 'hungry' ? '#ff6b81' : s.mood === 'sleepy' || s.mood === 'tired' ? '#7aa2ff' : '#39ff88';
   const lines = wrap(s.speech, 62);
@@ -411,8 +412,9 @@ export function cardSVG(s: PetState, o: { username: string }): string {
   const topCol = s.mood === 'ghost' ? '#a9b6ee' : s.month.beast && !(s.streakAtRisk && s.hoursLeft <= 6) ? '#ffd166' : '#ff6b81';
   const sub = `${s.streak}-DAY STREAK · BEST ${s.longestStreak} · LV ${s.level}${s.boosted ? ' · BOOSTED' : ''}`;
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="860" height="300" viewBox="0 0 860 300" role="img" aria-label="${esc(o.username)}'s GitHub pet: ${s.stageName} ${meta.name}, ${s.mood}" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace">
-<title>${esc(o.username)}'s GitHub Pet · ${s.stageName} ${meta.name} · ${s.streak}-day streak</title>
+  const cardTitle = petName || `${s.stageName} ${meta.name}`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="860" height="300" viewBox="0 0 860 300" role="img" aria-label="${esc(o.username)}'s GitHub pet ${esc(cardTitle)}, ${s.mood}" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace">
+<title>${esc(o.username)}'s GitHub Pet · ${esc(cardTitle)} · ${s.streak}-day streak</title>
 <style>${ART_CSS}</style>
 <defs>
 <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#1a1330"/></linearGradient>
@@ -433,8 +435,8 @@ export function cardSVG(s: PetState, o: { username: string }): string {
 ${petScene(s, 146, 226, 'c')}
 </g>
 ${top ? `<text class="pp-pulse" x="146" y="36" text-anchor="middle" font-size="10" font-weight="800" fill="${topCol}">${top}</text>` : ''}
-<text x="146" y="258" text-anchor="middle" font-size="12" font-weight="800" fill="#e6edf3">${s.stageName.toUpperCase()} ${meta.name.toUpperCase()}</text>
-<text x="146" y="274" text-anchor="middle" font-size="10" fill="#8b949e">${esc(meta.trait.toUpperCase())} · ${esc(m.tierLabel.toUpperCase())}</text>
+<text x="146" y="258" text-anchor="middle" font-size="12" font-weight="800" fill="#e6edf3">${esc((petName || `${s.stageName} ${meta.name}`).toUpperCase())}</text>
+<text x="146" y="274" text-anchor="middle" font-size="10" fill="#8b949e">${petName ? `${s.stageName.toUpperCase()} ${meta.name.toUpperCase()} · ` : ''}${esc(meta.trait.toUpperCase())} · ${esc(m.tierLabel.toUpperCase())}</text>
 <rect x="308" y="20" width="536" height="54" rx="10" fill="#e6edf3"/>
 <polygon points="296,46 310,38 310,54" fill="#e6edf3"/>
 ${bubble}

@@ -39,7 +39,7 @@ export function ThemeToggle() {
       aria-label={label}
       aria-pressed={theme === 'light'}
       title={label}
-      className="theme-control rounded-xl border border-white/10 bg-white/5 px-2.5 py-2 text-sm text-slate-300 transition hover:bg-white/10 sm:px-3"
+      className="theme-control rounded-full border border-white/10 bg-white/5 px-3 py-2 text-sm text-slate-300 transition hover:bg-white/10"
     >
       <span aria-hidden="true">{theme === 'dark' ? '\u2600' : '\u263E'}</span>
       <span className="ml-1.5 hidden sm:inline">{theme === 'dark' ? 'Light mode' : 'Dark mode'}</span>

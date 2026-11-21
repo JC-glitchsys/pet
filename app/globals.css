@@ -22,7 +22,7 @@ body {
     box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.02) inset, 0 24px 70px -24px rgba(0, 0, 0, 0.7);
   }
   .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 font-semibold transition active:scale-[0.97];
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 font-semibold transition active:scale-[0.97];
   }
   .btn-primary {
     @apply btn bg-neon-green text-ink-950 hover:brightness-110;
@@ -77,6 +77,11 @@ html[data-theme='light'] .grid-bg {
   background-image: linear-gradient(rgba(15, 23, 42, 0.04) 1px, transparent 1px),
     linear-gradient(90deg, rgba(15, 23, 42, 0.04) 1px, transparent 1px);
 }
+html[data-theme='light'] .achievement-card-unlocked {
+  border-color: rgba(52, 120, 82, 0.38);
+  background-color: rgba(52, 120, 82, 0.04);
+}
+html[data-theme='light'] .achievement-icon.text-emerald-300 { color: #28724d; }
 
 ::selection { background: rgba(57, 255, 136, 0.35); }
 :focus-visible { outline: 2px solid #38e8ff; outline-offset: 3px; }
