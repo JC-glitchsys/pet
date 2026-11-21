@@ -380,9 +380,9 @@ export function cardSVG(s: PetState, o: { username: string }): string {
   const meta = PETS[s.kind];
   const neon = s.mood === 'ghost' ? '#8b8fd6' : s.stage === 4 ? '#ffd166'
     : s.mood === 'sad' || s.mood === 'hungry' ? '#ff6b81' : s.mood === 'sleepy' || s.mood === 'tired' ? '#7aa2ff' : '#39ff88';
-  const lines = wrap(s.speech, 40);
+  const lines = wrap(s.speech, 62);
   const bubble = lines.map((l, i) =>
-    `<text x="445" y="${lines.length === 1 ? 51 : 44 + i * 17}" text-anchor="middle" font-size="13" font-weight="700" fill="#0d1117">${esc(l)}</text>`).join('');
+    `<text x="579" y="${lines.length === 1 ? 51 : 44 + i * 17}" text-anchor="middle" font-size="13" font-weight="700" fill="#0d1117">${esc(l)}</text>`).join('');
 
   const bars = ([
     ['HP', s.hp, `${s.hp}%`, 'g-hp'],
@@ -392,14 +392,14 @@ export function cardSVG(s: PetState, o: { username: string }): string {
   ] as const).map(([label, v, txt, g], i) => {
     const y = 128 + i * 22;
     const low = v < 25 && label !== 'XP';
-    return `<text x="270" y="${y + 9}" font-size="11" font-weight="700" fill="#8b949e">${label}</text>`
-      + `<rect x="334" y="${y}" width="220" height="10" rx="5" fill="#fff" fill-opacity=".08"/>`
-      + (v > 0 ? `<rect class="pp-fill${low ? ' pp-pulse' : ''}" style="animation-delay:${i * 0.12}s" x="334" y="${y}" width="${f((220 * v) / 100)}" height="10" rx="5" fill="url(#${g})"/>` : '')
-      + `<text x="622" y="${y + 9}" text-anchor="end" font-size="11" font-weight="700" fill="${low ? '#ff6b81' : '#e6edf3'}">${txt}</text>`;
+    return `<text x="308" y="${y + 9}" font-size="11" font-weight="700" fill="#8b949e">${label}</text>`
+      + `<rect x="382" y="${y}" width="360" height="10" rx="5" fill="#fff" fill-opacity=".08"/>`
+      + (v > 0 ? `<rect class="pp-fill${low ? ' pp-pulse' : ''}" style="animation-delay:${i * 0.12}s" x="382" y="${y}" width="${f((360 * v) / 100)}" height="10" rx="5" fill="url(#${g})"/>` : '')
+      + `<text x="844" y="${y + 9}" text-anchor="end" font-size="11" font-weight="700" fill="${low ? '#ff6b81' : '#e6edf3'}">${txt}</text>`;
   }).join('');
 
   const heat = m.days.map((d, i) => {
-    const x = 270 + (i % 15) * 19;
+    const x = 308 + (i % 15) * 28;
     const y = 230 + (i < 15 ? 0 : 1) * 18;
     const today = i === 29;
     return `<rect${today ? ' class="pp-pulse"' : ''} x="${x}" y="${y}" width="14" height="14" rx="3" fill="${LV[lvl(d.count)]}"${today ? ' stroke="#fff" stroke-width="1.5"' : ''}/>`;
@@ -411,7 +411,7 @@ export function cardSVG(s: PetState, o: { username: string }): string {
   const topCol = s.mood === 'ghost' ? '#a9b6ee' : s.month.beast && !(s.streakAtRisk && s.hoursLeft <= 6) ? '#ffd166' : '#ff6b81';
   const sub = `${s.streak}-DAY STREAK · BEST ${s.longestStreak} · LV ${s.level}${s.boosted ? ' · BOOSTED' : ''}`;
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="640" height="300" viewBox="0 0 640 300" role="img" aria-label="${esc(o.username)}'s GitHub pet: ${s.stageName} ${meta.name}, ${s.mood}" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace">
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="860" height="300" viewBox="0 0 860 300" role="img" aria-label="${esc(o.username)}'s GitHub pet: ${s.stageName} ${meta.name}, ${s.mood}" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace">
 <title>${esc(o.username)}'s GitHub Pet · ${s.stageName} ${meta.name} · ${s.streak}-day streak</title>
 <style>${ART_CSS}</style>
 <defs>
@@ -422,31 +422,31 @@ export function cardSVG(s: PetState, o: { username: string }): string {
 <linearGradient id="g-hu"><stop offset="0" stop-color="#ffa94d"/><stop offset="1" stop-color="#ffd166"/></linearGradient>
 <linearGradient id="g-jo"><stop offset="0" stop-color="#39ff88"/><stop offset="1" stop-color="#b6ff5c"/></linearGradient>
 <pattern id="grid" width="16" height="16" patternUnits="userSpaceOnUse"><path d="M16 0H0V16" fill="none" stroke="#fff" stroke-opacity=".04"/></pattern>
-<clipPath id="stage"><rect x="16" y="16" width="228" height="268" rx="16"/></clipPath>
+<clipPath id="stage"><rect x="16" y="16" width="260" height="268" rx="16"/></clipPath>
 </defs>
-<rect width="640" height="300" rx="20" fill="url(#bg)"/>
-<rect width="640" height="300" rx="20" fill="url(#grid)"/>
-<rect x=".75" y=".75" width="638.5" height="298.5" rx="19.5" fill="none" stroke="${neon}" stroke-opacity=".6" stroke-width="1.5"/>
-<rect x="16" y="16" width="228" height="268" rx="16" fill="url(#stg)" stroke="#fff" stroke-opacity=".08"/>
+<rect width="860" height="300" rx="20" fill="url(#bg)"/>
+<rect width="860" height="300" rx="20" fill="url(#grid)"/>
+<rect x=".75" y=".75" width="858.5" height="298.5" rx="19.5" fill="none" stroke="${neon}" stroke-opacity=".6" stroke-width="1.5"/>
+<rect x="16" y="16" width="260" height="268" rx="16" fill="url(#stg)" stroke="#fff" stroke-opacity=".08"/>
 <g clip-path="url(#stage)">
-<rect x="16" y="228" width="228" height="56" fill="#000" fill-opacity=".18"/>
-${petScene(s, 130, 226, 'c')}
+<rect x="16" y="228" width="260" height="56" fill="#000" fill-opacity=".18"/>
+${petScene(s, 146, 226, 'c')}
 </g>
-${top ? `<text class="pp-pulse" x="130" y="36" text-anchor="middle" font-size="10" font-weight="800" fill="${topCol}">${top}</text>` : ''}
-<text x="130" y="258" text-anchor="middle" font-size="12" font-weight="800" fill="#e6edf3">${s.stageName.toUpperCase()} ${meta.name.toUpperCase()}</text>
-<text x="130" y="274" text-anchor="middle" font-size="10" fill="#8b949e">${esc(meta.trait.toUpperCase())} · ${esc(m.tierLabel.toUpperCase())}</text>
-<rect x="270" y="20" width="350" height="54" rx="10" fill="#e6edf3"/>
-<polygon points="258,46 272,38 272,54" fill="#e6edf3"/>
+${top ? `<text class="pp-pulse" x="146" y="36" text-anchor="middle" font-size="10" font-weight="800" fill="${topCol}">${top}</text>` : ''}
+<text x="146" y="258" text-anchor="middle" font-size="12" font-weight="800" fill="#e6edf3">${s.stageName.toUpperCase()} ${meta.name.toUpperCase()}</text>
+<text x="146" y="274" text-anchor="middle" font-size="10" fill="#8b949e">${esc(meta.trait.toUpperCase())} · ${esc(m.tierLabel.toUpperCase())}</text>
+<rect x="308" y="20" width="536" height="54" rx="10" fill="#e6edf3"/>
+<polygon points="296,46 310,38 310,54" fill="#e6edf3"/>
 ${bubble}
-<text x="270" y="97" font-size="18" font-weight="800" fill="#fff">@${esc(o.username)}</text>
-<circle cx="527" cy="92" r="4" fill="${neon}"/>
-<text x="622" y="97" text-anchor="end" font-size="12" font-weight="800" fill="${neon}">${s.mood.toUpperCase()}</text>
-<text x="270" y="114" font-size="10" fill="#8b949e">${sub}</text>
+<text x="308" y="97" font-size="18" font-weight="800" fill="#fff">@${esc(o.username)}</text>
+<circle cx="749" cy="92" r="4" fill="${neon}"/>
+<text x="844" y="97" text-anchor="end" font-size="12" font-weight="800" fill="${neon}">${s.mood.toUpperCase()}</text>
+<text x="308" y="114" font-size="10" fill="#8b949e">${sub}</text>
 ${bars}
-<text x="270" y="222" font-size="10" fill="#8b949e">LAST 30 DAYS · ${m.commits} CONTRIBUTIONS · ${m.consistency}% CONSISTENT</text>
+<text x="308" y="222" font-size="10" fill="#8b949e">LAST 30 DAYS · ${m.commits} CONTRIBUTIONS · ${m.consistency}% CONSISTENT</text>
 ${heat}
-<text x="622" y="249" text-anchor="end" font-size="26" font-weight="800" fill="${neon}">${m.activeDays}<tspan font-size="12" fill="#8b949e">/30</tspan></text>
-<text x="622" y="262" text-anchor="end" font-size="9" fill="#8b949e">ACTIVE DAYS</text>
+<text x="844" y="249" text-anchor="end" font-size="26" font-weight="800" fill="${neon}">${m.activeDays}<tspan font-size="12" fill="#8b949e">/30</tspan></text>
+<text x="844" y="262" text-anchor="end" font-size="9" fill="#8b949e">ACTIVE DAYS</text>
 </svg>`;
 }
 
