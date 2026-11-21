@@ -1,4 +1,4 @@
-# Pasabog Pet
+# GitHub Pet
 
 A living pixel pet for your GitHub profile README. It grows from your **real contribution data**,
 gets hungry when you skip a day, and turns into a ghost if you vanish.

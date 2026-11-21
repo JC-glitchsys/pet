@@ -33,7 +33,7 @@ type Cal = { contributionCalendar: { weeks: { contributionDays: { date: string; 
 async function fetchPushTimes(login: string, token: string): Promise<string[]> {
   try {
     const r = await fetch(`https://api.github.com/users/${login}/events/public?per_page=100`, {
-      headers: { Authorization: `bearer ${token}`, Accept: 'application/vnd.github+json', 'User-Agent': 'pasabog-pet' },
+      headers: { Authorization: `bearer ${token}`, Accept: 'application/vnd.github+json', 'User-Agent': 'github-pet' },
     });
     if (!r.ok) return [];
     const ev = (await r.json()) as { type: string; created_at: string }[];
@@ -61,7 +61,7 @@ async function fetchReal(login: string, token: string): Promise<GhData> {
   const [res, pushTimes] = await Promise.all([
     fetch(ENDPOINT, {
       method: 'POST',
-      headers: { Authorization: `bearer ${token}`, 'Content-Type': 'application/json', 'User-Agent': 'pasabog-pet' },
+      headers: { Authorization: `bearer ${token}`, 'Content-Type': 'application/json', 'User-Agent': 'github-pet' },
       body: JSON.stringify({ query: QUERY, variables }),
       cache: 'no-store',
     }),

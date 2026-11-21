@@ -11,11 +11,11 @@ const site = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000';
 
 export const metadata: Metadata = {
   metadataBase: new URL(site),
-  title: { default: 'Pasabog Pet · A GitHub pet that dies if you stop committing', template: '%s · Pasabog Pet' },
+  title: { default: 'GitHub Pet · Your commits bring it to life', template: '%s · GitHub Pet' },
   description:
     'A living pixel pet for your GitHub profile README. It evolves with your real commit streak, gets hungry when you skip a day, and turns into a ghost if you vanish.',
-  openGraph: { title: 'Pasabog Pet', description: 'Commit daily or your GitHub pet dies.', type: 'website' },
-  twitter: { card: 'summary_large_image', title: 'Pasabog Pet', description: 'Commit daily or your GitHub pet dies.' },
+  openGraph: { title: 'GitHub Pet', description: 'A pixel pet powered by your GitHub contributions.', type: 'website' },
+  twitter: { card: 'summary_large_image', title: 'GitHub Pet', description: 'A pixel pet powered by your GitHub contributions.' },
 };
 
 export const viewport: Viewport = { themeColor: '#07080d', width: 'device-width', initialScale: 1 };
@@ -28,7 +28,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
             <Link href="/" className="flex items-center gap-2 font-pixel text-[11px] text-white">
               <span className="inline-block h-3 w-3 rounded-sm bg-neon-green shadow-[0_0_12px_#39ff88]" />
-              PASABOG<span className="text-neon-green">PET</span>
+              GITHUB<span className="text-neon-green">PET</span>
             </Link>
             <div className="hidden items-center gap-6 text-sm text-slate-400 sm:flex">
               <Link href="/#how" className="hover:text-white">How it works</Link>
